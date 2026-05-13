@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Hotel, Plus, Search, LogOut, Trash2, Edit3, Eye,
   ChevronDown, Building2, X, RefreshCw,
-  MapPin, Settings
+  MapPin, Settings, Star, Bell
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { hotelApi } from '../services/api';
@@ -139,6 +139,10 @@ export default function DashboardPage({ onLogout }) {
           <a className="sidebar-link" href="/dashboard/settings" onClick={(e) => { e.preventDefault(); navigate('/dashboard/settings'); }}>
             <Settings size={18} />
             <span>Settings</span>
+          </a>
+          <a className="sidebar-link" href="/dashboard/notifications" onClick={(e) => { e.preventDefault(); navigate('/dashboard/notifications'); }}>
+            <Bell size={18} />
+            <span>Notifications</span>
           </a>
         </nav>
 
@@ -300,6 +304,15 @@ export default function DashboardPage({ onLogout }) {
                       <MapPin size={13} />
                       <span>{hotel.location}</span>
                     </div>
+                    {hotel.rating > 0 && (
+                      <div className="hotel-card-location" style={{ color: '#f59e0b', marginTop: '2px' }}>
+                        <Star size={13} fill="#f59e0b" />
+                        <span style={{ marginLeft: '3px' }}>{Number(hotel.rating).toFixed(1)}</span>
+                        {hotel.review_count > 0 && (
+                          <span style={{ color: '#9ca3af', marginLeft: '2px' }}>({hotel.review_count})</span>
+                        )}
+                      </div>
+                    )}
                     <div className="hotel-card-meta">
                       <span className="hotel-card-category">{hotel.category || 'Hotel'}</span>
                       {hotel.check_in_date && (

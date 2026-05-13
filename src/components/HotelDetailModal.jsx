@@ -1,6 +1,6 @@
 import {
   X, MapPin, DollarSign, Building2, Calendar,
-  Edit3, Hotel
+  Edit3, Hotel, Star
 } from 'lucide-react';
 import './HotelFormModal.css';
 
@@ -45,6 +45,17 @@ export default function HotelDetailModal({ hotel, onClose, onEdit }) {
               </span>
               <span className="detail-stat-label">Per Night ($)</span>
             </div>
+            {hotel.rating > 0 && (
+              <div className="detail-stat">
+                <span className="detail-stat-value" style={{ color: '#f59e0b' }}>
+                  {Number(hotel.rating).toFixed(1)}
+                </span>
+                <span className="detail-stat-label">
+                  <Star size={10} fill="#f59e0b" color="#f59e0b" style={{ marginRight: '2px' }} />
+                  Rating {hotel.review_count > 0 ? `(${hotel.review_count} reviews)` : ''}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Description */}

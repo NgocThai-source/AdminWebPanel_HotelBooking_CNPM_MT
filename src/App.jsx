@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
+import NotificationsPage from './pages/NotificationsPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -64,6 +65,14 @@ function App() {
           element={
             isAuthenticated
               ? <SettingsPage onLogout={handleLogout} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/dashboard/notifications"
+          element={
+            isAuthenticated
+              ? <NotificationsPage onLogout={handleLogout} />
               : <Navigate to="/login" replace />
           }
         />
