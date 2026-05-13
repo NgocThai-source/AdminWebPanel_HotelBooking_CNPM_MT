@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'react-hot-toast';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import SettingsPage from './pages/SettingsPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -55,6 +56,14 @@ function App() {
           element={
             isAuthenticated
               ? <DashboardPage onLogout={handleLogout} />
+              : <Navigate to="/login" replace />
+          }
+        />
+        <Route
+          path="/dashboard/settings"
+          element={
+            isAuthenticated
+              ? <SettingsPage onLogout={handleLogout} />
               : <Navigate to="/login" replace />
           }
         />

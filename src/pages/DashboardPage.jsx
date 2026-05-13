@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Hotel, Plus, Search, LogOut, Trash2, Edit3, Eye,
   ChevronDown, Building2, X, RefreshCw,
-  MapPin
+  MapPin, Settings
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { hotelApi } from '../services/api';
@@ -135,6 +135,10 @@ export default function DashboardPage({ onLogout }) {
           <a className="sidebar-link" href="#hotels">
             <Building2 size={18} />
             <span>Properties</span>
+          </a>
+          <a className="sidebar-link" href="/dashboard/settings" onClick={(e) => { e.preventDefault(); navigate('/dashboard/settings'); }}>
+            <Settings size={18} />
+            <span>Settings</span>
           </a>
         </nav>
 
