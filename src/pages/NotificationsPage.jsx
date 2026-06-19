@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Bell, Send, User, MessageSquare, RefreshCw, CheckCircle, ChevronDown, Search, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { notificationsApi } from '../services/notificationsApi';
+import Sidebar from '../components/Sidebar';
 import './NotificationsPage.css';
 
 export default function NotificationsPage({ onLogout }) {
@@ -96,41 +97,10 @@ export default function NotificationsPage({ onLogout }) {
 
   return (
     <div className="dashboard notif-dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <img src="/logo.png" alt="Logo" className="sidebar-logo" />
-          <span className="sidebar-brand">Admin Dashboard</span>
-        </div>
-
-        <nav className="sidebar-nav">
-          <a className="sidebar-link" href="/dashboard">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-            <span>Hotel Management</span>
-          </a>
-          <a className="sidebar-link sidebar-link--active" href="/dashboard/notifications">
-            <Bell size={18} />
-            <span>Notifications</span>
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <button onClick={onLogout} className="sidebar-logout">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </aside>
+      <Sidebar onLogout={onLogout} />
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className="main-content page-enter">
         <header className="dash-header">
           <div>
             <h1 className="dash-title">Send Notifications</h1>

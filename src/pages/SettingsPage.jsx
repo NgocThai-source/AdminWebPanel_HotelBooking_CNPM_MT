@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Settings as SettingsIcon, DollarSign, RefreshCw, LogOut, Save } from 'lucide-react';
+import { DollarSign, RefreshCw, Save } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { settingsApi } from '../services/settingsApi';
-import { hotelApi } from '../services/api';
+import Sidebar from '../components/Sidebar';
 import './DashboardPage.css';
 
 const EXCHANGE_RATE_KEY = 'exchange_rate_usd_to_vnd';
@@ -12,7 +11,6 @@ export default function SettingsPage({ onLogout }) {
   const [exchangeRate, setExchangeRate] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     loadSettings();
@@ -53,38 +51,10 @@ export default function SettingsPage({ onLogout }) {
 
   return (
     <div className="dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <img src="/logo.png" alt="Logo" className="sidebar-logo" />
-          <span className="sidebar-brand">Admin Dashboard</span>
-        </div>
-
-        <nav className="sidebar-nav">
-          <a className="sidebar-link" href="/dashboard" onClick={(e) => { e.preventDefault(); navigate('/dashboard'); }}>
-            <SettingsIcon size={18} />
-            <span>Hotel Management</span>
-          </a>
-          <a className="sidebar-link" href="#hotels" onClick={(e) => { e.preventDefault(); navigate('/dashboard'); }}>
-            <SettingsIcon size={18} />
-            <span>Properties</span>
-          </a>
-          <a className="sidebar-link sidebar-link--active" href="#settings">
-            <SettingsIcon size={18} />
-            <span>Settings</span>
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <button onClick={() => { onLogout(); navigate('/login'); toast.success('Logged out successfully'); }} className="sidebar-logout">
-            <LogOut size={18} />
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </aside>
+      <Sidebar onLogout={onLogout} />
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className="main-content page-enter">
         {/* Header */}
         <header className="dash-header">
           <div>

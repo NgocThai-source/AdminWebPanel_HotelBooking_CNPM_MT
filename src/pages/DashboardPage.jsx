@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-  Hotel, Plus, Search, LogOut, Trash2, Edit3, Eye,
+  Hotel, Plus, Search, Trash2, Edit3, Eye,
   ChevronDown, Building2, X, RefreshCw,
-  MapPin, Settings, Star, Bell
+  MapPin, Star
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { hotelApi } from '../services/api';
 import HotelFormModal from '../components/HotelFormModal';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
 import HotelDetailModal from '../components/HotelDetailModal';
+import Sidebar from '../components/Sidebar';
 import './DashboardPage.css';
 
 
@@ -24,7 +24,6 @@ export default function DashboardPage({ onLogout }) {
   const [editingHotel, setEditingHotel] = useState(null);
   const [deletingHotel, setDeletingHotel] = useState(null);
   const [viewingHotel, setViewingHotel] = useState(null);
-  const navigate = useNavigate();
 
   const categories = ['All', 'Hotel', 'Resort', 'Homestay', 'Villa', 'Boutique', 'Luxury'];
 
@@ -97,12 +96,6 @@ export default function DashboardPage({ onLogout }) {
     }
   };
 
-  const handleLogout = () => {
-    onLogout();
-    navigate('/login');
-    toast.success('Logged out successfully');
-  };
-
   // Filter hotels
   const filteredHotels = hotels.filter((h) => {
     const matchSearch =
@@ -120,42 +113,10 @@ export default function DashboardPage({ onLogout }) {
 
   return (
     <div className="dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <img src="/logo.png" alt="Logo" className="sidebar-logo" />
-          <span className="sidebar-brand">Admin Dashboard</span>
-        </div>
-
-        <nav className="sidebar-nav">
-          <a className="sidebar-link sidebar-link--active" href="#dashboard">
-            <Hotel size={18} />
-            <span>Hotel Management</span>
-          </a>
-          <a className="sidebar-link" href="#hotels">
-            <Building2 size={18} />
-            <span>Properties</span>
-          </a>
-          <a className="sidebar-link" href="/dashboard/settings" onClick={(e) => { e.preventDefault(); navigate('/dashboard/settings'); }}>
-            <Settings size={18} />
-            <span>Settings</span>
-          </a>
-          <a className="sidebar-link" href="/dashboard/notifications" onClick={(e) => { e.preventDefault(); navigate('/dashboard/notifications'); }}>
-            <Bell size={18} />
-            <span>Notifications</span>
-          </a>
-        </nav>
-
-        <div className="sidebar-footer">
-          <button onClick={handleLogout} className="sidebar-logout">
-            <LogOut size={18} />
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </aside>
+      <Sidebar onLogout={onLogout} />
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className="main-content page-enter">
         {/* Header */}
         <header className="dash-header">
           <div>
