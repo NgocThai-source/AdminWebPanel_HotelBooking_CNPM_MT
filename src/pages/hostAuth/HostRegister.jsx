@@ -51,8 +51,10 @@ function HostRegister() {
       empty: "Vui lòng nhập đầy đủ thông tin!",
       mismatch: "Mật khẩu xác nhận không khớp!",
       duplicate: "Email này đã được đăng ký!",
-      success: "Đăng ký tài khoản thành công!",
+      success: "Đăng ký tài khoản thành công! Vui lòng chờ Admin duyệt.",
       fail: "Đăng ký thất bại!",
+      invalidEmail: "Email không hợp lệ!",
+      passwordShort: "Mật khẩu phải có ít nhất 3 ký tự!",
     },
     en: {
       title: "Host Register",
@@ -73,8 +75,10 @@ function HostRegister() {
       empty: "Please fill in all fields!",
       mismatch: "Confirm password does not match!",
       duplicate: "This email is already registered!",
-      success: "Account registered successfully!",
+      success: "Account registered successfully! Please wait for Admin approval.",
       fail: "Registration failed!",
+      invalidEmail: "Invalid email!",
+      passwordShort: "Password must be at least 3 characters!",
     },
   };
 
@@ -89,8 +93,24 @@ function HostRegister() {
     const passwordInput = password.trim();
     const confirmInput = confirmPassword.trim();
 
-    if (!hotelInput || !emailInput || !usernameInput || !passwordInput || !confirmInput) {
+    if (
+      !hotelInput ||
+      !emailInput ||
+      !usernameInput ||
+      !passwordInput ||
+      !confirmInput
+    ) {
       toast.error(t.empty);
+      return;
+    }
+
+    if (!emailInput.includes("@") || !emailInput.includes(".")) {
+      toast.error(t.invalidEmail);
+      return;
+    }
+
+    if (passwordInput.length < 3) {
+      toast.error(t.passwordShort);
       return;
     }
 
@@ -101,28 +121,42 @@ function HostRegister() {
 
     setIsLoading(true);
 
-    const { error } = await supabase.from("host_accounts").insert({
-      hotel_name: hotelInput,
-      email: emailInput,
-      username: usernameInput,
-      password: passwordInput,
-    });
+    const { data, error } = await supabase
+      .from("host_accounts")
+      .insert([
+        {
+          hotel_name: hotelInput,
+          email: emailInput,
+          username: usernameInput,
+          password: passwordInput,
+          status: "pending",
+        },
+      ])
+      .select();
 
     setIsLoading(false);
 
     if (error) {
-      console.log(error);
+      console.log("REGISTER ERROR:", error);
 
       if (error.code === "23505") {
         toast.error(t.duplicate);
       } else {
-        toast.error(t.fail);
+        toast.error(error.message || t.fail);
       }
 
       return;
     }
 
+    console.log("REGISTER SUCCESS:", data);
+
     toast.success(t.success);
+
+    setHotelName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
 
     setTimeout(() => {
       navigate("/host/login");
@@ -140,12 +174,18 @@ function HostRegister() {
       </div>
 
       <div className="host-tools">
-        <button type="button" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        <button
+          type="button"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        >
           {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
           {theme === "light" ? "Dark" : "Light"}
         </button>
 
-        <button type="button" onClick={() => setLang(lang === "vi" ? "en" : "vi")}>
+        <button
+          type="button"
+          onClick={() => setLang(lang === "vi" ? "en" : "vi")}
+        >
           <Languages size={17} />
           {lang === "vi" ? "EN" : "VI"}
         </button>

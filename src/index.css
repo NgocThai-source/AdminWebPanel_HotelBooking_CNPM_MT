@@ -1,61 +1,24 @@
 /* ============================================================
-   Hotel Booking Admin Panel — Light Theme
-   Color palette matched to logo: dark navy text + cyan brand
+   Hotel Booking Admin Panel — Tech Theme (Dark / Light)
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ── CSS Custom Properties (Light Theme) ── */
+/* ── BASE CSS CUSTOM PROPERTIES (Cố định, không đổi theo Theme) ── */
 :root {
-  /* Brand Colors — from logo */
-  --cyan-main:     #00C8E8;
+  /* Brand Colors */
+  --cyan-main:     #06B6D4;
   --cyan-light:    #4DE0F5;
-  --cyan-dark:     #0096B7;
-  --cyan-surface:  rgba(0, 200, 232, 0.1);
-  --cyan-surface-2: rgba(0, 200, 232, 0.05);
-  --cyan-glow:     rgba(0, 200, 232, 0.3);
-
-  /* Accent — Gold (logo star) */
-  --gold:           #FFC107;
-  --gold-dark:      #CA8A04;
-  --gold-surface:    rgba(255, 193, 7, 0.12);
-
-  /* Light Theme Background */
-  --bg-primary:     #FFFFFF;
-  --bg-secondary:    #F5F7FA;
-  --bg-surface:     #FFFFFF;
-  --bg-card:        #FFFFFF;
-  --bg-card-hover:  #F0F8FA;
-  --bg-elevated:    #F8FAFB;
-  --bg-input:       #F5F7FA;
-  --bg-sidebar:     #1E2D45;
-
-  /* Borders */
-  --border-default: #E2E8F0;
-  --border-hover:   #CBD5E1;
-  --border-focus:   var(--cyan-main);
-
-  /* Text — Dark Navy from logo */
-  --text-primary:   #0A1628;
-  --text-secondary:  #334155;
-  --text-tertiary:  #94A3B8;
-  --text-inverse:   #FFFFFF;
-
+  --cyan-dark:     #0891B2;
+  
   /* Status Colors */
-  --success:        #10B981;
-  --success-bg:     rgba(16, 185, 129, 0.1);
-  --error:          #EF4444;
-  --error-bg:       rgba(239, 68, 68, 0.08);
-  --warning:        #F59E0B;
-  --warning-bg:     rgba(245, 158, 11, 0.1);
+  --success:       #10B981;
+  --error:         #EF4444;
+  --warning:       #F59E0B;
 
-  /* Shadows (light mode — soft with slight cyan tint) */
-  --shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.06);
-  --shadow-md:       0 4px 12px rgba(10, 22, 40, 0.08), 0 1px 3px rgba(10, 22, 40, 0.04);
-  --shadow-lg:       0 8px 28px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.05);
-  --shadow-glow:     0 4px 20px rgba(0, 200, 232, 0.15);
-  --shadow-card:     0 2px 8px rgba(10, 22, 40, 0.07), 0 1px 2px rgba(10, 22, 40, 0.04);
-  --shadow-card-hover: 0 8px 24px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.06);
+  /* Accent — Gold */
+  --gold:          #FFC107;
+  --gold-dark:     #CA8A04;
 
   /* Radii */
   --radius-xs:       6px;
@@ -79,6 +42,42 @@
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
+/* ── BIẾN GIAO DIỆN SÁNG / TỐI (Thay đổi theo Theme) ── */
+
+/* CHẾ ĐỘ TỐI (DARK MODE) */
+.theme-dark {
+  --bg-page: radial-gradient(circle at top right, #1e293b, #0b1120);
+  --bg-sidebar: #0B1120;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --text-title: #F8FAFC;
+  --text-desc: #94A3B8;
+  --border-line: rgba(255, 255, 255, 0.1);
+  --glow-shadow: rgba(6, 182, 212, 0.2);
+  --icon-bg: rgba(255, 255, 255, 0.05);
+  
+  /* Scrollbar & Selection cho Dark */
+  --scrollbar-track: #0B1120;
+  --scrollbar-thumb: #334155;
+  --scrollbar-hover: #475569;
+}
+
+/* CHẾ ĐỘ SÁNG (LIGHT MODE) */
+.theme-light {
+  --bg-page: #F0F4F8;
+  --bg-sidebar: #1E2D45; /* Sidebar chế độ sáng vẫn giữ màu Navy đậm cho sang */
+  --bg-card: #FFFFFF;
+  --text-title: #0F172A;
+  --text-desc: #64748B;
+  --border-line: rgba(226, 232, 240, 0.8);
+  --glow-shadow: rgba(0, 200, 232, 0.15);
+  --icon-bg: #F1F5F9;
+
+  /* Scrollbar & Selection cho Light */
+  --scrollbar-track: #F5F7FA;
+  --scrollbar-thumb: #CBD5E1;
+  --scrollbar-hover: #94A3B8;
+}
+
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -91,8 +90,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--bg-page);
+  color: var(--text-title);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
@@ -109,9 +108,9 @@ input, textarea, select { font-family: var(--font-family); }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: var(--radius-pill); }
-::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
 
 /* ── Focus ── */
 *:focus-visible {
@@ -121,7 +120,7 @@ input, textarea, select { font-family: var(--font-family); }
 }
 
 /* ── Selection ── */
-::selection { background: rgba(0, 200, 232, 0.2); color: var(--text-primary); }
+::selection { background: rgba(6, 182, 212, 0.2); color: var(--text-title); }
 
 /* ── Utility ── */
 .text-cyan    { color: var(--cyan-main); }
@@ -143,60 +142,4 @@ input, textarea, select { font-family: var(--font-family); }
 @keyframes fadeInLeft {
   from { opacity: 0; transform: translateX(-20px); }
   to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.92); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 200, 232, 0.3); }
-  50%       { box-shadow: 0 0 20px rgba(0, 200, 232, 0.5); }
-}
-
-/* ── Animation Utilities ── */
-.animate-fade-in      { animation: fadeIn     var(--transition-normal) ease-out; }
-.animate-fade-in-up   { animation: fadeInUp  var(--transition-slow) ease-out; }
-.animate-fade-in-left { animation: fadeInLeft var(--transition-normal) ease-out; }
-.animate-scale-in     { animation: scaleIn   var(--transition-normal) ease-out; }
-
-/* ── Toast Overrides ── */
-.toast-custom {
-  background: var(--bg-card) !important;
-  color: var(--text-primary) !important;
-  border: 1px solid var(--border-default) !important;
-  border-radius: var(--radius-md) !important;
-  font-family: var(--font-family) !important;
-  font-size: 14px !important;
-  box-shadow: var(--shadow-lg) !important;
-}
-
-/* ── Reduced Motion ── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }

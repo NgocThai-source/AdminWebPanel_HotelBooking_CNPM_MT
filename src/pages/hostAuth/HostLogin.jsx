@@ -41,6 +41,9 @@ function HostLogin() {
       success: "Đăng nhập thành công!",
       fail: "Email/tên đăng nhập hoặc mật khẩu không đúng!",
       systemError: "Có lỗi xảy ra, vui lòng thử lại!",
+      pending: "Tài khoản của bạn đang chờ Admin duyệt!",
+      rejected: "Tài khoản của bạn đã bị từ chối!",
+      locked: "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin!",
     },
     en: {
       title: "Host Login",
@@ -58,6 +61,9 @@ function HostLogin() {
       success: "Login successful!",
       fail: "Email/username or password is incorrect!",
       systemError: "Something went wrong, please try again!",
+      pending: "Your account is waiting for Admin approval!",
+      rejected: "Your account has been rejected!",
+      locked: "Your account has been locked. Please contact Admin!",
     },
   };
 
@@ -93,6 +99,23 @@ function HostLogin() {
 
     if (!data) {
       toast.error(t.fail);
+      return;
+    }
+
+    const status = data.status || "pending";
+
+    if (status === "locked") {
+      toast.error(t.locked);
+      return;
+    }
+
+    if (status === "rejected") {
+      toast.error(t.rejected);
+      return;
+    }
+
+    if (status !== "approved") {
+      toast.error(t.pending);
       return;
     }
 
