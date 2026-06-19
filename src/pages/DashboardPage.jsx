@@ -1,9 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Hotel, Plus, Search, LogOut, Trash2, Edit3, Eye,
-  ChevronDown, Building2, X, RefreshCw,
-  MapPin, Settings, Star, Bell
+  Hotel,
+  Plus,
+  Search,
+  LogOut,
+  Trash2,
+  Edit3,
+  Eye,
+  ChevronDown,
+  Building2,
+  X,
+  RefreshCw,
+  MapPin,
+  Settings,
+  Star,
+  Bell,
+  Bed
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { hotelApi } from '../services/api';
@@ -158,6 +171,17 @@ export default function DashboardPage({ onLogout }) {
             <Building2 size={18} />
             <span>Properties</span>
           </a>
+          <a
+            className="sidebar-link"
+            href="/dashboard/bookings"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/dashboard/bookings");
+            }}
+          >
+            <Bed size={18} />
+            <span>Booked Rooms</span>
+          </a>
           <a className="sidebar-link" href="/dashboard/settings" onClick={(e) => { e.preventDefault(); navigate('/dashboard/settings'); }}>
             <Settings size={18} />
             <span>Settings</span>
@@ -167,6 +191,7 @@ export default function DashboardPage({ onLogout }) {
             <span>Notifications</span>
           </a>
         </nav>
+        
 
         <div className="sidebar-footer">
           <button onClick={handleLogout} className="sidebar-logout">

@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
+import BookingsPage from "./pages/BookingsPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -76,6 +77,7 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
+        <Route path="/dashboard/bookings" element={<BookingsPage />} />
         
         <Route path="*" element={<Navigate to={isAuthenticated ? '/dashboard' : '/login'} replace />} />
       </Routes>
