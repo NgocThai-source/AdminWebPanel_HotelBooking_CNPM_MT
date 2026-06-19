@@ -1,7 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 import {
-  X, Upload, Image as ImageIcon, MapPin, DollarSign,
-  Building2, Tag, Type, FileText, Calendar, Loader, Check
+  X,
+  Upload,
+  Image as ImageIcon,
+  MapPin,
+  DollarSign,
+  Building2,
+  Tag,
+  Type,
+  FileText,
+  Calendar,
+  Loader,
+  Check,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import { hotelApi } from '../services/api';
 import toast from 'react-hot-toast';
@@ -16,6 +28,7 @@ const ALL_AMENITIES = [
 export default function HotelFormModal({ hotel, onSave, onClose }) {
   const isEditing = Boolean(hotel);
   const fileInputRef = useRef(null);
+  const roomFileRefs = useRef([]);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(hotel?.image_url || '');
@@ -32,6 +45,22 @@ export default function HotelFormModal({ hotel, onSave, onClose }) {
     checkInDate: hotel?.check_in_date || '',
     checkOutDate: hotel?.check_out_date || '',
   });
+
+  const [rooms, setRooms] = useState(
+    hotel?.rooms?.length
+      ? hotel.rooms
+      : [
+          {
+            room_name: '',
+            room_type: '',
+            capacity: 1,
+            price_per_night: '',
+            room_count: 1,
+            image_url: '',
+            description: '',
+          }
+        ]
+  );
 
   const selectedAmenities = form.amenities || [];
 
@@ -58,6 +87,60 @@ export default function HotelFormModal({ hotel, onSave, onClose }) {
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
+  const addRoom = () => {
+    setRooms([
+      ...rooms,
+      {
+        room_name: '',
+        room_type: '',
+        capacity: 1,
+        price_per_night: '',
+        room_count: 1,
+        image_url: '',
+        description: '',
+      }
+    ]);
+  };
+
+  const removeRoom = (index) => {
+    setRooms(rooms.filter((_, i) => i !== index));
+  };
+
+  const handleRoomChange = (index, field, value) => {
+    const updated = [...rooms];
+    updated[index][field] = value;
+    setRooms(updated);
+  };
+  const handleRoomImageUpload = async (index, e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    handleRoomChange(
+      index,
+      'image_url',
+      reader.result
+    );
+  };
+
+  reader.readAsDataURL(file);
+
+  try {
+    const url = await hotelApi.uploadImage(file);
+
+    handleRoomChange(
+      index,
+      'image_url',
+      url
+    );
+
+    toast.success('Room image uploaded!');
+  } catch (err) {
+    toast.error('Failed to upload room image');
+  }
+};
 
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -103,6 +186,12 @@ export default function HotelFormModal({ hotel, onSave, onClose }) {
       await onSave({
         ...form,
         price: parseFloat(form.price) || 0,
+        rooms: rooms.map(room => ({
+          ...room,
+          capacity: Number(room.capacity),
+          room_count: Number(room.room_count),
+          price_per_night: Number(room.price_per_night) || 0,
+        }))
       });
     } catch {
       // Error handled by parent
@@ -330,6 +419,183 @@ export default function HotelFormModal({ hotel, onSave, onClose }) {
             </div>
           </div>
 
+          {/* Rooms */}
+          <div className="rooms-section">
+          <div className="rooms-header">
+            <h3 className="rooms-title">Rooms</h3>
+
+            <button
+              type="button"
+              className="btn-add-room"
+              onClick={addRoom}
+            >
+              <Plus size={16} />
+              Add Room
+            </button>
+          </div>
+
+          {rooms.map((room, index) => (
+            <div className="room-card" key={index}>
+              <div className="room-card-header">
+                <h4 className="room-card-title">
+                  Room {index + 1}
+                </h4>
+
+                {rooms.length > 1 && (
+                  <button
+                    type="button"
+                    className="btn-remove-room"
+                    onClick={() => removeRoom(index)}
+                  >
+                    <>
+                      <Trash2 size={14} />
+                      Remove
+                    </>
+                  </button>
+                )}
+              </div>
+              <div className="form-field form-field--full">
+              <label className="form-label">
+                <ImageIcon size={14} />
+                Room Image
+              </label>
+
+              <div className="room-image-upload">
+
+                {room.image_url ? (
+                  <div className="room-image-preview">
+                    <img
+                      src={room.image_url}
+                      alt="Room"
+                    />
+
+                    <button
+                      type="button"
+                      className="image-remove"
+                      onClick={() =>
+                        handleRoomChange(index, 'image_url', '')
+                      }
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="room-upload-btn"
+                    onClick={() =>
+                      roomFileRefs.current[index]?.click()
+                    }
+                  >
+                    <Upload size={20} />
+
+                    <span>Upload Room Image</span>
+                  </button>
+                )}
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={(el) => (roomFileRefs.current[index] = el)}
+                  style={{ display: 'none' }}
+                  onChange={(e) =>
+                    handleRoomImageUpload(index, e)
+                  }
+                />
+
+              </div>
+            </div>
+
+              <div className="room-grid">
+
+                <div className="form-field">
+                  <label className="form-label">Room Name</label>
+
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={room.room_name}
+                    onChange={(e) =>
+                      handleRoomChange(index, 'room_name', e.target.value)
+                    }
+                    placeholder="Deluxe Room"
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label className="form-label">Room Type</label>
+
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={room.room_type}
+                    onChange={(e) =>
+                      handleRoomChange(index, 'room_type', e.target.value)
+                    }
+                    placeholder="Double"
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label className="form-label">Capacity</label>
+
+                  <input
+                    type="number"
+                    className="form-input"
+                    value={room.capacity}
+                    min="1"
+                    onChange={(e) =>
+                      handleRoomChange(index, 'capacity', e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label className="form-label">Price/Night</label>
+
+                  <input
+                    type="number"
+                    className="form-input"
+                    value={room.price_per_night}
+                    min="0"
+                    onChange={(e) =>
+                      handleRoomChange(index, 'price_per_night', e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label className="form-label">Quantity</label>
+
+                  <input
+                    type="number"
+                    className="form-input"
+                    value={room.room_count}
+                    min="1"
+                    onChange={(e) =>
+                      handleRoomChange(index, 'room_count', e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="form-field form-field--full">
+                  <label className="form-label">Room Description</label>
+
+                  <textarea
+                    className="form-textarea"
+                    rows={2}
+                    value={room.description}
+                    onChange={(e) =>
+                      handleRoomChange(index, 'description', e.target.value)
+                    }
+                    placeholder="Describe this room..."
+                  />
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
           {/* Footer */}
           <div className="modal-footer">
             <button type="button" onClick={onClose} className="btn-secondary">

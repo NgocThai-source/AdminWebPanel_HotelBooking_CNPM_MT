@@ -21,8 +21,8 @@
   width: 100%;
   max-width: 720px;
   max-height: 90vh;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  background: #111827;
+  border: 1px solid #1F2937;
   border-radius: var(--radius-xl);
   overflow: hidden;
   display: flex;
@@ -37,7 +37,16 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 1px solid #1F2937;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #1F2937;
+  margin-top: 24px;
 }
 
 .modal-title {
@@ -148,9 +157,9 @@
   padding: 10px 14px;
   font-size: 14px;
   font-family: var(--font-family);
-  color: var(--text-primary);
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
+  color: #F8FAFC;
+  background: #0F172A;
+  border: 1px solid #334155;
   border-radius: var(--radius-md);
   outline: none;
   transition: all var(--transition-fast);
@@ -175,8 +184,8 @@
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-  border-color: var(--cyan-main);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+  border-color: #06B6D4;
+  box-shadow: 0 0 0 3px rgba(6,182,212,.15);
 }
 
 .form-select {
@@ -465,4 +474,345 @@
   .detail-stats {
     grid-template-columns: 1fr;
   }
+}
+/* ============================================================
+   Rooms Section
+============================================================ */
+
+.rooms-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-default);
+}
+
+.rooms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rooms-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ===== Room Card ===== */
+
+.room-card {
+  background: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: all 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.room-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.room-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ===== Room Form ===== */
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.room-grid .form-field--full {
+  grid-column: 1 / -1;
+}
+
+/* ===== Add Room ===== */
+
+.btn-add-room {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #009fe3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add-room:hover {
+  background: #0088c4;
+  transform: translateY(-2px);
+}
+
+.btn-add-room svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== Remove Room ===== */
+
+.btn-remove-room {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-remove-room:hover {
+  background: #dc2626;
+}
+
+.btn-remove-room svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================================================
+   Room Image Upload (Đồng bộ với Property Image)
+   ============================================================ */
+.room-image-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 160px; /* Chiều cao tương đồng với property image */
+  background: #0F172A; /* Nền xanh đen tối màu */
+  border: 2px dashed #334155; /* Viền đứt nét màu xám */
+  border-radius: 12px;
+  color: #94A3B8; /* Text màu xám nhạt */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+/* Hiệu ứng khi hover */
+.room-image-upload:hover {
+  border-color: #06B6D4;
+  color: #06B6D4;
+  background: rgba(6, 182, 212, 0.05); /* Sáng nền nhẹ */
+}
+
+/* Style cho các text bên trong */
+.room-image-upload span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.room-image-upload small {
+  font-size: 12px;
+  color: #64748B;
+}
+
+/* Chỉnh size cho icon upload */
+.room-image-upload svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  stroke: currentColor;
+}
+
+/* Preview ảnh sau khi upload */
+
+.room-image-preview-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 160px;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 2px solid #00E5FF;
+  background: #071224;
+}
+
+.room-image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-image-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+
+  cursor: pointer;
+}
+
+.room-image-remove:hover {
+  background: #EF4444;
+}
+
+/* ===== Preview ===== */
+
+.room-image-preview {
+  position: relative;
+  width: 100%;
+  height: 180px;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  border: 1px solid #dbe2ea;
+}
+
+.room-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Remove Image ===== */
+
+.room-image-preview .image-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.room-image-preview .image-remove:hover {
+  background: #ef4444;
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+
+@media (max-width: 768px) {
+  .room-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rooms-header,
+  .room-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-add-room,
+  .btn-remove-room {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .room-card {
+    padding: 18px;
+  }
+
+  .room-upload-btn {
+    height: 130px;
+  }
+
+  .room-image-preview {
+    height: 160px;
+  }
+}
+
+.room-image-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  height: 140px;
+
+  background: #111827;
+  border: 2px dashed #334155;
+  border-radius: 12px;
+
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.room-image-upload:hover {
+  border-color: #06B6D4;
+  color: #06B6D4;
+}
+
+.room-image-preview {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #334155;
+}
+.modal-container,
+.room-card,
+.form-input,
+.form-select,
+.form-textarea,
+.image-upload-btn,
+.room-image-upload {
+  color-scheme: dark;
+}
+
+.room-card,
+.image-upload-btn {
+  background: #0F172A !important;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: #0F172A !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
 }

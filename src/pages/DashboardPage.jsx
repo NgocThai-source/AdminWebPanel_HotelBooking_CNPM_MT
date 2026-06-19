@@ -82,14 +82,36 @@ export default function DashboardPage({ onLogout }) {
   const handleFormSave = async (hotelData) => {
     try {
       if (editingHotel) {
+        // cập nhật khách sạn
         await hotelApi.update(editingHotel.id, hotelData);
+
         toast.success('Hotel updated successfully');
       } else {
-        await hotelApi.create(hotelData);
-        toast.success('Hotel created successfully! It will appear on the app.');
+        // tạo khách sạn
+        const createdHotel = await hotelApi.create(hotelData);
+
+        // lưu phòng
+        if (hotelData.rooms?.length > 0) {
+          const roomsData = hotelData.rooms.map(room => ({
+            hotel_id: createdHotel.id,
+            room_name: room.room_name,
+            room_type: room.room_type,
+            capacity: Number(room.capacity),
+            price_per_night: Number(room.price_per_night),
+            room_count: Number(room.room_count),
+            image_url: room.image_url,
+            description: room.description,
+          }));
+
+          await hotelApi.createRooms(roomsData);
+        }
+
+        toast.success('Hotel created successfully!');
       }
+
       setShowFormModal(false);
       setEditingHotel(null);
+
       fetchHotels();
     } catch (err) {
       toast.error(err.message || 'Failed to save hotel');

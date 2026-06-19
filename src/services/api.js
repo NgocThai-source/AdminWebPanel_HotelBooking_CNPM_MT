@@ -75,6 +75,24 @@ export const hotelApi = {
 
     return json?.data;
   },
+  // Create rooms
+  createRooms: async (roomsData) => {
+    const res = await fetch(`${API_BASE}/rooms`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(roomsData),
+    });
+
+    const json = await parseJsonSafely(res);
+
+    if (!res.ok) {
+      throw new Error(json?.error || 'Failed to create rooms');
+    }
+
+    return json?.data;
+  },
 
   // Delete hotel
   delete: async (id) => {
