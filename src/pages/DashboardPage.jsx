@@ -42,18 +42,26 @@ export default function DashboardPage({ onLogout }) {
   const categories = ['All', 'Hotel', 'Resort', 'Homestay', 'Villa', 'Boutique', 'Luxury'];
 
   const fetchHotels = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await hotelApi.getAll();
-      setHotels(data || []);
-    } catch (err) {
-      console.error('Failed to fetch hotels:', err);
-      toast.error('Failed to load hotels. Is the backend running?');
-      setHotels([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  try {
+    setLoading(true);
+
+    const hotelName = localStorage.getItem("hotel_name");
+
+    const data = await hotelApi.getAll();
+
+    const filteredHotels = (data || []).filter(
+          (hotel) => hotel.hostName === hotelName
+        );
+
+        setHotels(filteredHotels);
+      } catch (err) {
+        console.error("Failed to fetch hotels:", err);
+        toast.error("Failed to load hotels");
+        setHotels([]);
+      } finally {
+        setLoading(false);
+      }
+    }, []);
 
   useEffect(() => {
     fetchHotels();
@@ -65,6 +73,13 @@ export default function DashboardPage({ onLogout }) {
   };
 
   const handleEdit = (hotel) => {
+    const hotelName = localStorage.getItem("hotel_name");
+
+    if (hotel.hostName !== hotelName) {
+      toast.error("Bạn không có quyền sửa khách sạn này");
+      return;
+    }
+
     setEditingHotel(hotel);
     setShowFormModal(true);
   };
@@ -75,6 +90,13 @@ export default function DashboardPage({ onLogout }) {
   };
 
   const handleDeleteClick = (hotel) => {
+    const hotelName = localStorage.getItem("hotel_name");
+
+    if (hotel.hostName !== hotelName) {
+      toast.error("Bạn không có quyền xóa khách sạn này");
+      return;
+    }
+
     setDeletingHotel(hotel);
     setShowDeleteModal(true);
   };
@@ -101,7 +123,10 @@ export default function DashboardPage({ onLogout }) {
         toast.success('Hotel updated successfully');
       } else {
         // tạo khách sạn
-        const createdHotel = await hotelApi.create(hotelData);
+        const createdHotel = await hotelApi.create({
+          ...hotelData,
+          hostName: localStorage.getItem("hotel_name"),
+        });
 
         // lưu phòng
         if (hotelData.rooms?.length > 0) {

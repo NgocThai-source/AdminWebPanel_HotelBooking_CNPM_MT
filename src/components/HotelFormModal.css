@@ -733,3 +733,306 @@
     justify-content: center;
   }
 }
+/* ============================================================
+   Modal/Form Luxury Theme Override
+   White / Navy / Beige / Gold
+   Dán xuống CUỐI FILE để ghi đè màu cũ
+============================================================ */
+
+.modal-backdrop {
+  background: rgba(7, 22, 44, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.modal-container {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 28px 70px rgba(16, 33, 63, 0.22);
+}
+
+.modal-header,
+.modal-footer,
+.detail-modal-footer {
+  border-color: rgba(16, 33, 63, 0.12);
+  background: rgba(255, 250, 240, 0.75);
+}
+
+.modal-title,
+.detail-modal-body h2,
+.delete-modal-body h3,
+.rooms-title,
+.room-card-title {
+  color: #10213f;
+  font-weight: 800;
+}
+
+.modal-close {
+  color: #6b7280;
+}
+
+.modal-close:hover {
+  background: rgba(244, 183, 64, 0.16);
+  color: #d99516;
+}
+
+.modal-body,
+.detail-modal-body {
+  background:
+    radial-gradient(circle at top right, rgba(244, 183, 64, 0.1), transparent 28%),
+    linear-gradient(135deg, #ffffff 0%, #fffaf0 100%);
+}
+
+.form-label {
+  color: #5f6b7c;
+  font-weight: 800;
+}
+
+.form-hint {
+  color: #8a93a3;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: rgba(255, 250, 240, 0.86);
+  border: 1px solid rgba(16, 33, 63, 0.14);
+  color: #10213f;
+  border-radius: 14px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #98a1b2;
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: rgba(244, 183, 64, 0.55);
+  background: #ffffff;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: #f4b740;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(244, 183, 64, 0.16);
+}
+
+.form-select option {
+  background: #ffffff;
+  color: #10213f;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  border: 1px solid rgba(16, 33, 63, 0.14);
+  color: #5f6b7c;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.btn-secondary:hover {
+  background: rgba(244, 183, 64, 0.16);
+  border-color: rgba(244, 183, 64, 0.5);
+  color: #10213f;
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.btn-danger:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* Image upload */
+.image-upload-btn,
+.room-image-upload {
+  background: rgba(255, 250, 240, 0.8);
+  border: 2px dashed rgba(16, 33, 63, 0.18);
+  color: #8a93a3;
+  border-radius: 18px;
+}
+
+.image-upload-btn:hover,
+.room-image-upload:hover {
+  border-color: #f4b740;
+  color: #d99516;
+  background: rgba(244, 183, 64, 0.12);
+}
+
+.image-preview-wrapper,
+.room-image-preview {
+  border-color: rgba(16, 33, 63, 0.12);
+  border-radius: 18px;
+}
+
+.image-remove,
+.room-image-remove,
+.room-image-preview .image-remove {
+  background: rgba(7, 22, 44, 0.72);
+}
+
+.image-remove:hover,
+.room-image-remove:hover,
+.room-image-preview .image-remove:hover {
+  background: #ef4444;
+}
+
+/* Delete modal */
+.delete-icon-wrapper {
+background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.delete-modal-body p,
+.detail-description,
+.detail-location {
+  color: #5f6b7c;
+}
+
+.delete-modal-body .hotel-name-highlight {
+  color: #10213f;
+}
+
+/* Detail modal */
+.detail-modal-img,
+.detail-modal-img-placeholder {
+  border-radius: 20px;
+}
+
+.detail-modal-img-placeholder {
+  background: rgba(255, 250, 240, 0.85);
+  color: #8a93a3;
+}
+
+.detail-stat,
+.detail-tag {
+  background: rgba(255, 250, 240, 0.82);
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  border-radius: 16px;
+}
+
+.detail-stat-value {
+  color: #10213f;
+}
+
+.detail-stat-label {
+  color: #8a93a3;
+}
+
+.detail-tag {
+  color: #5f6b7c;
+}
+
+/* Rooms section */
+.rooms-section {
+  border-top: 1px solid rgba(16, 33, 63, 0.12);
+}
+
+.room-card {
+  background: rgba(255, 250, 240, 0.82);
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(16, 33, 63, 0.08);
+}
+
+.room-card:hover {
+  border-color: rgba(244, 183, 64, 0.55);
+  box-shadow: 0 18px 36px rgba(244, 183, 64, 0.16);
+}
+
+.btn-add-room {
+  background: linear-gradient(135deg, #10213f, #1b3767);
+  color: #ffffff;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.btn-add-room:hover {
+  background: linear-gradient(135deg, #f4b740, #d99516);
+  color: #07162c;
+  box-shadow: 0 12px 26px rgba(244, 183, 64, 0.28);
+}
+
+.btn-remove-room {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.btn-remove-room:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Dark mode khi nằm trong dashboard-wrapper.theme-dark */
+.theme-dark .modal-container {
+  background: rgba(9, 18, 34, 0.94);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .modal-header,
+.theme-dark .modal-footer,
+.theme-dark .detail-modal-footer {
+  background: rgba(7, 22, 44, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .modal-title,
+.theme-dark .detail-modal-body h2,
+.theme-dark .delete-modal-body h3,
+.theme-dark .rooms-title,
+.theme-dark .room-card-title,
+.theme-dark .detail-stat-value {
+  color: #ffffff;
+}
+
+.theme-dark .modal-body,
+.theme-dark .detail-modal-body {
+  background:
+    radial-gradient(circle at top right, rgba(244, 183, 64, 0.08), transparent 28%),
+    linear-gradient(135deg, #07162c 0%, #10213f 100%);
+}
+
+.theme-dark .form-label,
+.theme-dark .detail-description,
+.theme-dark .detail-location,
+.theme-dark .detail-tag {
+  color: #a7b4c8;
+}
+
+.theme-dark .form-input,
+.theme-dark .form-select,
+.theme-dark .form-textarea,
+.theme-dark .room-card,
+.theme-dark .detail-stat,
+.theme-dark .detail-tag,
+.theme-dark .image-upload-btn,
+.theme-dark .room-image-upload,
+.theme-dark .detail-modal-img-placeholder {
+  background: rgba(16, 28, 48, 0.86);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.theme-dark .form-select option {
+  background: #07162c;
+  color: #ffffff;
+}
+
+.theme-dark .btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #a7b4c8;
+border-color: rgba(255, 255, 255, 0.08);
+}

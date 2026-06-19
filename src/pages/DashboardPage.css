@@ -875,3 +875,282 @@
     grid-template-columns: 1fr;
   }
 }
+/* ============================================================
+   Luxury Theme Override - White / Navy / Beige / Gold
+   Dán xuống CUỐI FILE để ghi đè màu cũ
+============================================================ */
+
+:root {
+  --navy-main: #07162c;
+  --navy-soft: #10213f;
+  --beige-main: #f7f3ea;
+  --beige-soft: #fffaf0;
+  --gold-main: #f4b740;
+  --gold-dark: #d99516;
+
+  --bg-primary: #f7f3ea;
+  --bg-surface: #07162c;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: rgba(255, 250, 240, 0.96);
+  --bg-elevated: #fffaf0;
+
+  --text-primary: #10213f;
+  --text-secondary: #5f6b7c;
+  --text-tertiary: #8a93a3;
+  --text-inverse: #ffffff;
+
+  --border-default: rgba(16, 33, 63, 0.12);
+  --border-hover: rgba(244, 183, 64, 0.55);
+
+  --cyan-main: #f4b740;
+  --cyan-dark: #d99516;
+  --cyan-surface: rgba(244, 183, 64, 0.16);
+
+  --gold: #f4b740;
+  --warning-bg: rgba(244, 183, 64, 0.16);
+
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.13);
+
+  --error: #ef4444;
+  --error-bg: rgba(239, 68, 68, 0.12);
+
+  --shadow-md: 0 14px 30px rgba(16, 33, 63, 0.12);
+  --shadow-lg: 0 22px 50px rgba(16, 33, 63, 0.16);
+}
+
+/* Sidebar sang trọng */
+.sidebar {
+  background: linear-gradient(180deg, #07162c 0%, #10213f 55%, #07162c 100%);
+  border-right: 1px solid rgba(244, 183, 64, 0.22);
+}
+
+.sidebar-header,
+.sidebar-footer {
+  border-color: rgba(244, 183, 64, 0.18);
+}
+
+.sidebar-brand {
+  color: #ffffff;
+}
+
+.sidebar-link {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sidebar-link:hover {
+  background: rgba(244, 183, 64, 0.12);
+  color: #ffffff;
+}
+
+.sidebar-link--active {
+  background: linear-gradient(135deg, #f4b740, #d99516);
+  color: #07162c;
+  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(244, 183, 64, 0.3);
+}
+
+.sidebar-logout {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sidebar-logout:hover {
+  background: rgba(239, 68, 68, 0.16);
+  color: #ff6b6b;
+}
+
+/* Main */
+.main-content {
+  background:
+    radial-gradient(circle at top right, rgba(244, 183, 64, 0.14), transparent 30%),
+    linear-gradient(135deg, #f7f3ea 0%, #ffffff 52%, #fffaf0 100%);
+}
+
+/* Header */
+.dash-title,
+.section-title,
+.stat-value,
+.hotel-card-title,
+.settings-label,
+.settings-preview-amount {
+  color: #10213f;
+}
+
+.dash-subtitle,
+.stat-label,
+.hotel-card-location,
+.hotel-card-date,
+.hotel-card-description,
+.settings-description {
+  color: #6b7280;
+}
+
+/* Icon buttons */
+.btn-icon {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(16, 33, 63, 0.12);
+  color: #10213f;
+  box-shadow: 0 8px 18px rgba(16, 33, 63, 0.08);
+}
+
+.btn-icon:hover {
+  background: #fffaf0;
+  border-color: rgba(244, 183, 64, 0.55);
+  color: #d99516;
+}
+
+/* Primary button */
+.btn-primary {
+  background: linear-gradient(135deg, #f4b740, #d99516);
+  color: #07162c;
+  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(244, 183, 64, 0.28);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 16px 34px rgba(244, 183, 64, 0.36);
+}
+
+/* Stats */
+.stat-card,
+.hotel-card,
+.settings-card {
+  background: rgba(255, 255, 255, 0.9);
+border-color: rgba(16, 33, 63, 0.12);
+  box-shadow: 0 12px 30px rgba(16, 33, 63, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.stat-card:hover,
+.hotel-card:hover,
+.settings-card:hover {
+  border-color: rgba(244, 183, 64, 0.55);
+  box-shadow: 0 20px 46px rgba(244, 183, 64, 0.18);
+}
+
+/* Icons */
+.stat-icon--cyan,
+.settings-icon-wrap,
+.section-count,
+.chip--active,
+.hotel-card-category {
+  background: rgba(244, 183, 64, 0.16);
+  color: #d99516;
+}
+
+.stat-icon--green {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.stat-icon--gold {
+  background: rgba(244, 183, 64, 0.18);
+  color: #d99516;
+}
+
+/* Search */
+.search-input {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(16, 33, 63, 0.12);
+  color: #10213f;
+}
+
+.search-input:focus {
+  border-color: #f4b740;
+  box-shadow: 0 0 0 4px rgba(244, 183, 64, 0.16);
+}
+
+.search-icon {
+  color: #d99516;
+}
+
+.search-clear {
+  background: #fffaf0;
+  color: #d99516;
+}
+
+/* Chips */
+.chip {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(16, 33, 63, 0.12);
+  color: #5f6b7c;
+}
+
+.chip:hover {
+  background: rgba(244, 183, 64, 0.12);
+  border-color: rgba(244, 183, 64, 0.45);
+  color: #10213f;
+}
+
+.chip--active {
+  border-color: #f4b740;
+  color: #07162c;
+  font-weight: 800;
+}
+
+/* Hotel cards */
+.hotel-card {
+  border-radius: 22px;
+}
+
+.hotel-card-badge {
+  background: linear-gradient(135deg, #f4b740, #d99516);
+  color: #07162c;
+}
+
+.hotel-card-rating {
+  background: rgba(7, 22, 44, 0.78);
+  color: #f4b740;
+}
+
+.hotel-card-price {
+  color: #10213f;
+}
+
+.hotel-card-amenity-tag {
+  background: #fffaf0;
+  color: #9a650b;
+  border-color: rgba(244, 183, 64, 0.28);
+}
+
+/* Overlay action */
+.card-action-btn {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.card-action-btn:hover {
+  background: #f4b740;
+  color: #07162c;
+}
+
+/* Settings */
+.settings-preview,
+.input-group {
+  background: rgba(255, 250, 240, 0.8);
+  border-color: rgba(16, 33, 63, 0.12);
+}
+
+.input-group:focus-within {
+  border-color: #f4b740;
+  box-shadow: 0 0 0 4px rgba(244, 183, 64, 0.16);
+}
+
+.form-input {
+  color: #10213f;
+}
+
+.input-suffix {
+  background: #f7f3ea;
+  color: #6b7280;
+}
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f7f3ea 25%,
+    #fff4d6 50%,
+    #f7f3ea 75%
+  );
+  background-size: 200% 100%;
+}

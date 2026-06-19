@@ -21,7 +21,7 @@ function HostRegister() {
 
   const [hotelName, setHotelName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [full_name, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -37,7 +37,7 @@ function HostRegister() {
       subtitle: "Tạo tài khoản quản lý khách sạn",
       hotel: "Tên khách sạn",
       email: "Email",
-      username: "Tên đăng nhập",
+      full_name: "Tên đăng nhập",
       password: "Mật khẩu",
       confirm: "Xác nhận mật khẩu",
       hotelPlace: "Nhập tên khách sạn",
@@ -61,7 +61,7 @@ function HostRegister() {
       subtitle: "Create your hotel management account",
       hotel: "Hotel name",
       email: "Email",
-      username: "Username",
+      full_name: "Username",
       password: "Password",
       confirm: "Confirm password",
       hotelPlace: "Enter hotel name",
@@ -89,7 +89,7 @@ function HostRegister() {
 
     const hotelInput = hotelName.trim();
     const emailInput = email.trim().toLowerCase();
-    const usernameInput = username.trim();
+    const usernameInput = full_name.trim();
     const passwordInput = password.trim();
     const confirmInput = confirmPassword.trim();
 
@@ -127,7 +127,7 @@ function HostRegister() {
         {
           hotel_name: hotelInput,
           email: emailInput,
-          username: usernameInput,
+          full_name: usernameInput,
           password: passwordInput,
           status: "pending",
         },
@@ -234,14 +234,14 @@ function HostRegister() {
           </div>
 
           <div className="host-field">
-            <label className="host-label">{t.username}</label>
+            <label className="host-label">{t.full_name}</label>
             <div className="host-input-wrapper">
               <User className="host-input-icon" size={18} />
               <input
                 className="host-input"
                 type="text"
                 placeholder={t.usernamePlace}
-                value={username}
+                value={full_name}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />

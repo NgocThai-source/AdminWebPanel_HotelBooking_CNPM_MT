@@ -28,7 +28,7 @@ function HostLogin({ onLogin }) {
     vi: {
       title: "Đăng nhập",
       subtitle: "Hệ thống quản lý khách sạn",
-      username: "Email hoặc tên đăng nhập",
+      full_name: "Email hoặc tên đăng nhập",
       password: "Mật khẩu",
       usernamePlace: "Nhập email hoặc tên đăng nhập",
       passwordPlace: "Nhập mật khẩu",
@@ -48,9 +48,9 @@ function HostLogin({ onLogin }) {
     en: {
       title: "Host Login",
       subtitle: "Hotel Booking Management System",
-      username: "Email or username",
+      full_name: "Email or full_name",
       password: "Password",
-      usernamePlace: "Enter email or username",
+      usernamePlace: "Enter email or full_name",
       passwordPlace: "Enter password",
       forgot: "Forgot password?",
       login: "Sign In",
@@ -59,7 +59,7 @@ function HostLogin({ onLogin }) {
       footer: "Protected host area • Hotel Booking App © 2026",
       empty: "Please enter all information!",
       success: "Login successful!",
-      fail: "Email/username or password is incorrect!",
+      fail: "Email/full_name or password is incorrect!",
       systemError: "Something went wrong, please try again!",
       pending: "Your account is waiting for Admin approval!",
       rejected: "Your account has been rejected!",
@@ -85,7 +85,7 @@ function HostLogin({ onLogin }) {
     const { data, error } = await supabase
       .from("host_accounts")
       .select("*")
-      .or(`email.eq.${loginInput},username.eq.${loginInput}`)
+      .or(`email.eq.${loginInput},full_name.eq.${loginInput}`)
       .eq("password", passwordInput)
       .maybeSingle();
 
@@ -122,7 +122,7 @@ function HostLogin({ onLogin }) {
     localStorage.setItem("host_auth", "true");
     localStorage.setItem("host_id", data.id);
     localStorage.setItem("host_email", data.email);
-    localStorage.setItem("host_username", data.username);
+    localStorage.setItem("host_full_name", data.full_name);
     localStorage.setItem("hotel_name", data.hotel_name);
 
     toast.success(t.success);
@@ -175,7 +175,7 @@ function HostLogin({ onLogin }) {
 
         <form className="host-form" onSubmit={handleLogin}>
           <div className="host-field">
-            <label className="host-label">{t.username}</label>
+            <label className="host-label">{t.full_name}</label>
 
             <div className="host-input-wrapper">
               <User className="host-input-icon" size={18} />

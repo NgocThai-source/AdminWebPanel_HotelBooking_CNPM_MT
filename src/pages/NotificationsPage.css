@@ -449,3 +449,262 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+/* ============================================================
+   Notification Page - Luxury White / Navy / Beige / Gold Theme
+   Dán xuống CUỐI FILE để ghi đè màu cũ
+============================================================ */
+
+.notif-dashboard {
+  background:
+    radial-gradient(circle at top right, rgba(244, 183, 64, 0.16), transparent 32%),
+    linear-gradient(135deg, #f7f3ea 0%, #ffffff 55%, #fffaf0 100%);
+}
+
+.notif-form-card,
+.notif-history-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(16, 33, 63, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.notif-form-header h2,
+.notif-history-header h2 {
+  color: #10213f;
+  font-weight: 800;
+}
+
+.notif-form-icon {
+  background: rgba(244, 183, 64, 0.18);
+  color: #d99516;
+  box-shadow: 0 10px 22px rgba(244, 183, 64, 0.2);
+}
+
+.notif-label {
+  color: #5f6b7c;
+  font-weight: 700;
+}
+
+.notif-input,
+.notif-textarea {
+  background: rgba(255, 250, 240, 0.85);
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  color: #10213f;
+  border-radius: 14px;
+}
+
+.notif-input::placeholder,
+.notif-textarea::placeholder {
+  color: #98a1b2;
+}
+
+.notif-input:focus,
+.notif-textarea:focus {
+  border-color: #f4b740;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(244, 183, 64, 0.16);
+}
+
+.notif-hint {
+  color: #8a93a3;
+}
+
+.notif-submit {
+  border: none;
+  background: linear-gradient(135deg, #10213f, #1b3767);
+  color: #ffffff;
+  font-weight: 900;
+  box-shadow: 0 14px 28px rgba(16, 33, 63, 0.2);
+  transition: 0.25s ease;
+}
+
+.notif-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f4b740, #d99516);
+  color: #07162c;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(244, 183, 64, 0.3);
+}
+
+/* Dropdown */
+.user-dropdown {
+  background: #ffffff;
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 18px 42px rgba(16, 33, 63, 0.18);
+}
+
+.dropdown-user-item:hover {
+  background: rgba(244, 183, 64, 0.13);
+}
+
+.dropdown-user-avatar {
+  background: linear-gradient(135deg, #10213f, #1b3767);
+  color: #ffffff;
+}
+
+.dropdown-user-name {
+  color: #10213f;
+  font-weight: 700;
+}
+
+.dropdown-user-email {
+  color: #6b7280;
+}
+
+.dropdown-loading,
+.dropdown-empty {
+  color: #8a93a3;
+}
+
+/* Selected user */
+.selected-user-display {
+  background: rgba(255, 250, 240, 0.9);
+  border: 1px solid rgba(244, 183, 64, 0.55);
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(244, 183, 64, 0.12);
+}
+
+.selected-user-icon {
+  color: #d99516;
+}
+
+.selected-user-name {
+  color: #10213f;
+  font-weight: 800;
+}
+
+.selected-user-email {
+  color: #6b7280;
+}
+
+.selected-user-phone {
+  color: #8a93a3;
+}
+
+.clear-user-btn {
+  background: #ffffff;
+  border: 1px solid rgba(16, 33, 63, 0.12);
+  color: #6b7280;
+  border-radius: 8px;
+}
+
+.clear-user-btn:hover {
+  background: #f4b740;
+  color: #07162c;
+  border-color: #f4b740;
+}
+
+/* History */
+.notif-history-list::-webkit-scrollbar-thumb,
+.user-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(244, 183, 64, 0.55);
+}
+
+.notif-history-item {
+  background: rgba(255, 250, 240, 0.78);
+  border: 1px solid rgba(16, 33, 63, 0.1);
+  border-radius: 14px;
+  transition: 0.22s ease;
+}
+
+.notif-history-item:hover {
+  background: #ffffff;
+  border-color: rgba(244, 183, 64, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(16, 33, 63, 0.1);
+}
+
+.notif-history-title {
+  color: #10213f;
+  font-weight: 800;
+}
+
+.notif-history-body {
+  color: #5f6b7c;
+}
+
+.notif-history-time {
+  color: #8a93a3;
+}
+
+.notif-badge--booking_confirmed {
+  background: rgba(16, 185, 129, 0.13);
+  color: #10b981;
+}
+
+.notif-badge--admin_message {
+  background: rgba(244, 183, 64, 0.18);
+  color: #d99516;
+}
+
+.notif-read-badge {
+  background: rgba(16, 185, 129, 0.13);
+  color: #10b981;
+}
+
+.notif-unread-badge {
+  background: rgba(244, 183, 64, 0.18);
+  color: #d99516;
+}
+
+/* Empty */
+.notif-empty-hint {
+  color: #8a93a3;
+}
+
+.notif-empty-hint p {
+  color: #6b7280;
+}
+
+/* Search icon */
+.search-wrapper-inline .search-icon-inline {
+  color: #d99516;
+}
+
+/* Dark mode nếu nằm trong dashboard-wrapper.theme-dark */
+.theme-dark .notif-dashboard {
+  background:
+    radial-gradient(circle at top right, rgba(244, 183, 64, 0.12), transparent 32%),
+    linear-gradient(135deg, #07162c 0%, #10213f 55%, #0b1930 100%);
+}
+
+.theme-dark .notif-form-card,
+.theme-dark .notif-history-card {
+  background: rgba(9, 18, 34, 0.88);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .notif-form-header h2,
+.theme-dark .notif-history-header h2,
+.theme-dark .dropdown-user-name,
+.theme-dark .selected-user-name,
+.theme-dark .notif-history-title {
+  color: #ffffff;
+}
+
+.theme-dark .notif-label,
+.theme-dark .notif-history-body,
+.theme-dark .selected-user-email,
+.theme-dark .dropdown-user-email {
+  color: #a7b4c8;
+}
+
+.theme-dark .notif-input,
+.theme-dark .notif-textarea,
+.theme-dark .selected-user-display,
+.theme-dark .notif-history-item {
+  background: rgba(16, 28, 48, 0.86);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.theme-dark .user-dropdown {
+  background: #0b1930;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .clear-user-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: #a7b4c8;
+}
