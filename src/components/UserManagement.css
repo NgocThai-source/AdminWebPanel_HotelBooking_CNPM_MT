@@ -1,0 +1,50 @@
+.user-management-container {
+  padding: 40px;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.user-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1600px) { .user-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.user-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-line);
+  border-radius: 20px; padding: 24px; display: flex; flex-direction: column; align-items: center;
+  transition: all 0.4s; animation: popUp 0.5s ease both;
+}
+.user-card:hover { border-color: var(--cyan-main); box-shadow: 0 0 25px var(--glow-shadow); transform: translateY(-6px); }
+
+.user-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--cyan-main), #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: white; margin-bottom: 16px; }
+.user-name { font-size: 16px; font-weight: 700; color: var(--text-title); margin-bottom: 6px; }
+.user-role-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: var(--icon-bg); color: var(--cyan-main); margin-bottom: 16px; text-transform: uppercase; }
+
+.user-info-list { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.user-info-item { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-desc); }
+
+.user-action-row { margin-top: auto; width: 100%; padding-top: 16px; border-top: 1px solid var(--border-line); display: flex; gap: 8px; }
+.btn-user { flex: 1; padding: 8px; border-radius: 8px; border: none; font-weight: 700; font-size: 12px; cursor: pointer; transition: 0.3s; }
+.btn-approve { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.btn-approve:hover { background: var(--success); color: white; }
+.btn-reject { background: rgba(239, 68, 68, 0.15); color: var(--error); }
+.btn-reject:hover { background: var(--error); color: white; }
+/* --- GIAO DIỆN TABS (FILTER PILLS) --- */
+.filter-pills { display: flex; gap: 12px; margin-bottom: 28px; }
+.pill { 
+  padding: 8px 24px; border-radius: 8px; 
+  background: var(--icon-bg); color: var(--text-desc); 
+  cursor: pointer; border: 1px solid var(--border-line); 
+  font-weight: 600; font-size: 13px; transition: all 0.3s; 
+}
+.pill:hover { background: rgba(255, 255, 255, 0.05); color: var(--text-title); }
+.pill.active { background: var(--cyan-main); color: white; border-color: var(--cyan-main); box-shadow: 0 4px 12px var(--glow-shadow); }
+
+/* --- MÀU SẮC TRẠNG THÁI (BADGES) --- */
+.status-badge.warning, .status-badge-inline.warning { background: var(--warning); color: white; }
+.status-badge.success, .status-badge-inline.success { background: var(--success); color: white; }
+.status-badge.danger, .status-badge-inline.danger { background: var(--error); color: white; }
+
+.status-badge-inline {
+  padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-bottom: 12px;
+}

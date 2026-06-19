@@ -1,101 +1,41 @@
-import { Hotel, Settings, Bell, LogOut } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import React from 'react';
+import { FileText, Users, LogOut, Sun, Moon, Globe } from 'lucide-react';
+import './Sidebar.css';
 
-export default function Sidebar({ onLogout }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const isActive = (path) => location.pathname === path;
-
-  const navItems = [
-    {
-      id: 'hotels',
-      path: '/dashboard',
-      label: 'Hotel Management',
-      icon: Hotel,
-    },
-    {
-      id: 'settings',
-      path: '/dashboard/settings',
-      label: 'Settings',
-      icon: Settings,
-    },
-    {
-      id: 'notifications',
-      path: '/dashboard/notifications',
-      label: 'Notifications',
-      icon: Bell,
-    },
-  ];
-
-  const handleLogout = () => {
-    onLogout();
-    navigate('/login');
-    toast.success('Logged out successfully');
-  };
-
+export default function Sidebar({ activeTab, setActiveTab, onLogout, lang, setLang, theme, setTheme, t }) {
   return (
-    <aside className="sidebar">
-      {/* Header */}
-      <div className="sidebar-header">
-        <div className="sidebar-logo-wrap">
-          <img src="/logo.png" alt="Logo" className="sidebar-logo" />
-          <div className="sidebar-logo-glow" />
-        </div>
-        <div className="sidebar-brand-text">
-          <span className="sidebar-brand">Admin Panel</span>
-          <span className="sidebar-brand-sub">Hotel Booking</span>
-        </div>
+    <aside className="sidebar" style={{ backgroundColor: 'var(--bg-sidebar)', width: '260px', display: 'flex', flexDirection: 'column', minHeight: '100vh', borderRight: '1px solid var(--border-line)', transition: 'all 0.3s' }}>
+      <div className="sidebar-header" style={{ padding: '24px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <h2 style={{ color: 'white', margin: 0, fontSize: '20px' }}>Admin Panel</h2>
+        <span style={{ color: 'var(--cyan-main)', fontSize: '13px' }}>Design Intelligence</span>
       </div>
 
-      {/* Section Label */}
-      <div className="sidebar-section-label">Navigation</div>
-
-      {/* Nav */}
-      <nav className="sidebar-nav">
-        {navItems.map(({ id, path, label, icon: Icon }) => {
-          const active = isActive(path);
-          return (
-            <button
-              key={id}
-              className={`sidebar-link ${active ? 'sidebar-link--active' : ''}`}
-              onClick={() => navigate(path)}
-            >
-              {/* Active indicator bar */}
-              <span className="sidebar-link-indicator" />
-
-              {/* Icon */}
-              <span className="sidebar-link-icon">
-                <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-              </span>
-
-              {/* Label */}
-              <span className="sidebar-link-label">{label}</span>
-
-              {/* Active arrow */}
-              {active && (
-                <span className="sidebar-link-arrow">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              )}
-            </button>
-          );
-        })}
+      <nav className="sidebar-nav" style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <button 
+          onClick={() => setActiveTab('posts')}
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: activeTab === 'posts' ? 'var(--cyan-main)' : 'transparent', color: activeTab === 'posts' ? 'white' : '#94A3B8', fontWeight: 'bold' }}
+        >
+          <FileText size={20} /> {t('navPost')}
+        </button>
+        <button 
+          onClick={() => setActiveTab('users')}
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: activeTab === 'users' ? 'var(--cyan-main)' : 'transparent', color: activeTab === 'users' ? 'white' : '#94A3B8', fontWeight: 'bold' }}
+        >
+          <Users size={20} /> {t('navUser')}
+        </button>
       </nav>
 
-      {/* Divider */}
-      <div className="sidebar-divider" />
-
-      {/* Footer */}
-      <div className="sidebar-footer">
-        <button onClick={handleLogout} className="sidebar-logout">
-          <span className="sidebar-logout-icon">
-            <LogOut size={18} strokeWidth={2} />
-          </span>
-          <span className="sidebar-logout-label">Sign Out</span>
+      <div className="sidebar-footer" style={{ padding: '16px' }}>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
+          <button onClick={() => setTheme(theme === 'theme-dark' ? 'theme-light' : 'theme-dark')} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #334155', background: 'transparent', color: 'white', cursor: 'pointer', display: 'flex', justifyContent: 'center' }}>
+            {theme === 'theme-dark' ? <Sun size={18}/> : <Moon size={18}/>}
+          </button>
+          <button onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #334155', background: 'transparent', color: 'white', cursor: 'pointer', display: 'flex', justifyContent: 'center', gap: '6px', fontWeight: 'bold' }}>
+            <Globe size={18} /> {lang === 'vi' ? 'EN' : 'VI'}
+          </button>
+        </div>
+        <button onClick={onLogout} style={{ display: 'flex', justifyContent: 'center', gap: '8px', background: 'transparent', color: '#EF4444', border: '1px solid rgba(239, 68, 68, 0.3)', width: '100%', padding: '12px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+          <LogOut size={18} /> {t('logout')}
         </button>
       </div>
     </aside>
