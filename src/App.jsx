@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
+import AppHost from './pages/hostAuth/AppHost';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -43,7 +45,12 @@ function App() {
           },
         }}
       />
+
       <Routes>
+        {/* HOST ROUTES - không liên quan Admin */}
+        <Route path="/host/*" element={<AppHost />} />
+
+        {/* ADMIN ROUTES */}
         <Route
           path="/login"
           element={
@@ -52,6 +59,7 @@ function App() {
               : <LoginPage onLogin={handleLogin} />
           }
         />
+
         <Route
           path="/dashboard"
           element={
@@ -60,6 +68,7 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
+
         <Route
           path="/dashboard/settings"
           element={
@@ -68,6 +77,7 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
+
         <Route
           path="/dashboard/notifications"
           element={
@@ -76,7 +86,16 @@ function App() {
               : <Navigate to="/login" replace />
           }
         />
-        <Route path="*" element={<Navigate to={isAuthenticated ? '/dashboard' : '/login'} replace />} />
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to={isAuthenticated ? '/dashboard' : '/login'}
+              replace
+            />
+          }
+        />
       </Routes>
     </Router>
   );
