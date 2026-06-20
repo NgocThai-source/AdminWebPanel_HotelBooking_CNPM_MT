@@ -18,18 +18,14 @@ export default function HotelDetailModal({
   if (!hotel) return null;
 
   return (
-    <div
-      className="modal-backdrop"
-      onClick={onClose}
-    >
+    <div className="modal-backdrop" onClick={onClose}>
       <div
         className="modal-container detail-modal-container"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* BODY SCROLL */}
         <div className="detail-modal-body">
 
-          {/* HOTEL IMAGE */}
+          {/* IMAGE */}
           {hotel.image_url ? (
             <img
               src={hotel.image_url}
@@ -43,14 +39,12 @@ export default function HotelDetailModal({
           )}
 
           {/* HEADER */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginTop: '20px'
-            }}
-          >
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            marginTop: '20px'
+          }}>
             <div>
               <h2>{hotel.title}</h2>
 
@@ -60,11 +54,7 @@ export default function HotelDetailModal({
               </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="modal-close"
-              aria-label="Close"
-            >
+            <button onClick={onClose} className="modal-close">
               <X size={20} />
             </button>
           </div>
@@ -72,37 +62,19 @@ export default function HotelDetailModal({
           {/* STATS */}
           <div className="detail-stats">
             <div className="detail-stat">
-              <span
-                className="detail-stat-value"
-                style={{ color: 'var(--cyan-main)' }}
-              >
+              <span style={{ color: 'var(--cyan-main)' }}>
                 ${hotel.price || 0}
               </span>
-
-              <span className="detail-stat-label">
-                Per Night ($)
-              </span>
+              <span>Per Night</span>
             </div>
 
             {hotel.rating > 0 && (
               <div className="detail-stat">
-                <span
-                  className="detail-stat-value"
-                  style={{ color: '#f59e0b' }}
-                >
+                <span style={{ color: '#f59e0b' }}>
                   {Number(hotel.rating).toFixed(1)}
                 </span>
-
-                <span className="detail-stat-label">
-                  <Star
-                    size={10}
-                    fill="#f59e0b"
-                    color="#f59e0b"
-                    style={{ marginRight: 2 }}
-                  />
-                  Rating
-                  {hotel.review_count > 0 &&
-                    ` (${hotel.review_count} reviews)`}
+                <span>
+                  <Star size={10} fill="#f59e0b" /> Rating
                 </span>
               </div>
             )}
@@ -117,185 +89,122 @@ export default function HotelDetailModal({
 
           {/* ROOMS */}
           {hotel.rooms?.length > 0 && (
-            <div
-              style={{
-                marginTop: '24px',
-                marginBottom: '24px'
-              }}
-            >
-              <h3
-                style={{
-                  color: '#fff',
-                  fontSize: '20px',
-                  marginBottom: '16px'
-                }}
-              >
+            <div style={{ marginTop: '24px', marginBottom: '24px' }}>
+              <h3 style={{ color: '#fff' }}>
                 Rooms ({hotel.rooms.length})
               </h3>
 
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '18px'
-                }}
-              >
-                {hotel.rooms.map((room) => (
-                  <div
-                    key={room.id}
-                    style={{
-                      borderRadius: '14px',
-                      overflow: 'hidden',
-                      background: '#111827',
-                      border:
-                        '1px solid rgba(255,255,255,.08)'
-                    }}
-                  >
-                    {room.image_url && (
-                      <img
-                        src={room.image_url}
-                        alt={
-                          room.room_name ||
-                          `Room ${room.id}`
-                        }
-                        style={{
-                          width: '100%',
-                          height: '220px',
-                          objectFit: 'cover'
-                        }}
-                      />
+              {hotel.rooms.map((room) => (
+                <div
+                  key={room.id}
+                  style={{
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    background: '#111827',
+                    marginTop: '18px',
+                    border: '1px solid rgba(255,255,255,.08)'
+                  }}
+                >
+
+                  {/* ROOM IMAGE */}
+                  {room.image_url && (
+                    <img
+                      src={room.image_url}
+                      alt={room.room_name}
+                      style={{
+                        width: '100%',
+                        height: '220px',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  )}
+
+                  <div style={{ padding: '16px' }}>
+
+                    {/* NAME + PRICE */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between'
+                    }}>
+                      <h4 style={{ color: '#fff', margin: 0 }}>
+                        {room.room_name || room.room_type || `Room #${room.id}`}
+                      </h4>
+
+                      <span style={{ color: '#06B6D4', fontWeight: 700 }}>
+                        ${room.price_per_night || 0}
+                      </span>
+                    </div>
+
+                    {/* DESCRIPTION */}
+                    {room.description && (
+                      <p style={{ color: '#94A3B8', fontSize: '13px' }}>
+                        {room.description}
+                      </p>
                     )}
 
-                    <div
-                      style={{
-                        padding: '16px'
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent:
-                            'space-between',
-                          alignItems: 'center',
-                          marginBottom: '10px'
-                        }}
-                      >
-                        <h4
-                          style={{
-                            margin: 0,
-                            color: '#fff'
-                          }}
-                        >
-                          {room.room_name ||
-                            room.room_type ||
-                            `Room #${room.id}`}
-                        </h4>
-
-                        <span
-                          style={{
-                            color: '#06B6D4',
-                            fontWeight: 700,
-                            fontSize: '18px'
-                          }}
-                        >
-                          $
-                          {room.price_per_night ||
-                            0}
-                        </span>
-                      </div>
-
-                      {room.description && (
-                        <p
-                          style={{
-                            color: '#94A3B8',
-                            fontSize: '13px',
-                            marginBottom: '12px'
-                          }}
-                        >
-                          {room.description}
-                        </p>
-                      )}
-
-                      <div
-                        style={{
-                          display: 'flex',
-                          gap: '20px',
-                          color: '#94A3B8',
-                          fontSize: '13px'
-                        }}
-                      >
-                        <span>
-                          👥 {room.capacity} Guests
-                        </span>
-
-                        <span>
-                          🛏 {room.room_count} Rooms
-                        </span>
-                      </div>
-
-                      {/* CHECK IN / OUT */}
-                      <div
-                        style={{
-                          marginTop: '14px',
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: '8px'
-                        }}
-                      >
-                        {hotel.check_in_date && (
-                          <span className="detail-tag">
-                            <Calendar size={12} />
-                            Check-in:
-                            {hotel.check_in_date}
-                          </span>
-                        )}
-
-                        {hotel.check_out_date && (
-                          <span className="detail-tag">
-                            <Calendar size={12} />
-                            Check-out:
-                            {hotel.check_out_date}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* ROOM AMENITIES */}
-                      {hotel.amenities?.length > 0 && (
-                        <div
-                          style={{
-                            marginTop: '14px',
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: '8px'
-                          }}
-                        >
-                          {hotel.amenities.map(
-                            (amenity, idx) => (
-                              <span
-                                key={idx}
-                                style={{
-                                  padding:
-                                    '5px 12px',
-                                  borderRadius:
-                                    '999px',
-                                  background:
-                                    'rgba(6,182,212,.15)',
-                                  color:
-                                    '#06B6D4',
-                                  fontSize:
-                                    '12px'
-                                }}
-                              >
-                                {amenity}
-                              </span>
-                            )
-                          )}
-                        </div>
-                      )}
+                    {/* INFO */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '20px',
+                      fontSize: '13px',
+                      color: '#94A3B8'
+                    }}>
+                      <span>👥 {room.capacity} Guests</span>
+                      <span>🛏 {room.room_count} Rooms</span>
                     </div>
+
+                    {/* CHECK IN / OUT (FIXED SAFE) */}
+                    {(room.check_in_date || room.check_out_date) && (
+                      <div style={{
+                        marginTop: '14px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '8px'
+                      }}>
+                        {room.check_in_date && (
+                          <span className="detail-tag">
+                            <Calendar size={12} />
+                            Check-in: {room.check_in_date}
+                          </span>
+                        )}
+
+                        {room.check_out_date && (
+                          <span className="detail-tag">
+                            <Calendar size={12} />
+                            Check-out: {room.check_out_date}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* AMENITIES */}
+                    {room.amenities?.length > 0 && (
+                      <div style={{
+                        marginTop: '14px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '8px'
+                      }}>
+                        {room.amenities.map((amenity, idx) => (
+                          <span
+                            key={idx}
+                            style={{
+                              padding: '5px 12px',
+                              borderRadius: '999px',
+                              background: 'rgba(6,182,212,.15)',
+                              color: '#06B6D4',
+                              fontSize: '12px'
+                            }}
+                          >
+                            {amenity}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           )}
 
@@ -316,17 +225,11 @@ export default function HotelDetailModal({
 
         {/* FOOTER */}
         <div className="detail-modal-footer">
-          <button
-            onClick={onClose}
-            className="btn-secondary"
-          >
+          <button onClick={onClose} className="btn-secondary">
             Close
           </button>
 
-          <button
-            onClick={onEdit}
-            className="btn-primary"
-          >
+          <button onClick={onEdit} className="btn-primary">
             <Edit3 size={16} />
             <span>Edit Property</span>
           </button>

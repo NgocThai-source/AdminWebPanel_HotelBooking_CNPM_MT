@@ -42,26 +42,18 @@ export default function DashboardPage({ onLogout }) {
   const categories = ['All', 'Hotel', 'Resort', 'Homestay', 'Villa', 'Boutique', 'Luxury'];
 
   const fetchHotels = useCallback(async () => {
-  try {
-    setLoading(true);
-
-    const hotelName = localStorage.getItem("hotel_name");
-
-    const data = await hotelApi.getAll();
-
-    const filteredHotels = (data || []).filter(
-          (hotel) => hotel.hostName === hotelName
-        );
-
-        setHotels(filteredHotels);
-      } catch (err) {
-        console.error("Failed to fetch hotels:", err);
-        toast.error("Failed to load hotels");
-        setHotels([]);
-      } finally {
-        setLoading(false);
-      }
-    }, []);
+    try {
+      setLoading(true);
+      const data = await hotelApi.getAll();
+      setHotels(data || []);
+    } catch (err) {
+      console.error('Failed to fetch hotels:', err);
+      toast.error('Failed to load hotels. Is the backend running?');
+      setHotels([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchHotels();
@@ -73,13 +65,6 @@ export default function DashboardPage({ onLogout }) {
   };
 
   const handleEdit = (hotel) => {
-    const hotelName = localStorage.getItem("hotel_name");
-
-    if (hotel.hostName !== hotelName) {
-      toast.error("Bạn không có quyền sửa khách sạn này");
-      return;
-    }
-
     setEditingHotel(hotel);
     setShowFormModal(true);
   };
@@ -90,13 +75,6 @@ export default function DashboardPage({ onLogout }) {
   };
 
   const handleDeleteClick = (hotel) => {
-    const hotelName = localStorage.getItem("hotel_name");
-
-    if (hotel.hostName !== hotelName) {
-      toast.error("Bạn không có quyền xóa khách sạn này");
-      return;
-    }
-
     setDeletingHotel(hotel);
     setShowDeleteModal(true);
   };
@@ -114,48 +92,80 @@ export default function DashboardPage({ onLogout }) {
     }
   };
 
-  const handleFormSave = async (hotelData) => {
-    try {
-      if (editingHotel) {
-        // cập nhật khách sạn
-        await hotelApi.update(editingHotel.id, hotelData);
+ const handleFormSave = async (hotelData) => {
+  try {
+    if (editingHotel) {
+      // 1. update hotel
+      await hotelApi.update(editingHotel.id, hotelData);
 
-        toast.success('Hotel updated successfully');
-      } else {
-        // tạo khách sạn
-        const createdHotel = await hotelApi.create({
-          ...hotelData,
-          hostName: localStorage.getItem("hotel_name"),
-        });
+      // 2. update rooms nếu có
+      if (hotelData.rooms?.length > 0) {
+        for (const room of hotelData.rooms) {
+          if (room.id) {
+            // update room
+            await roomsApi.updateRoom(room.id, {
+              room_name: room.room_name,
+              room_type: room.room_type,
+              capacity: Number(room.capacity),
+              price_per_night: Number(room.price_per_night),
+              room_count: Number(room.room_count),
+              image_url: room.image_url,
+              description: room.description,
 
-        // lưu phòng
-        if (hotelData.rooms?.length > 0) {
-          const roomsData = hotelData.rooms.map(room => ({
-            hotel_id: createdHotel.id,
-            room_name: room.room_name,
-            room_type: room.room_type,
-            capacity: Number(room.capacity),
-            price_per_night: Number(room.price_per_night),
-            room_count: Number(room.room_count),
-            image_url: room.image_url,
-            description: room.description,
-          }));
-
-          await hotelApi.createRooms(roomsData);
+              // 🔥 quan trọng
+              check_in_date: room.check_in_date,
+              check_out_date: room.check_out_date,
+            });
+          } else {
+            // create room mới
+            await roomsApi.createRoom({
+              hotel_id: editingHotel.id,
+              room_name: room.room_name,
+              room_type: room.room_type,
+              capacity: Number(room.capacity),
+              price_per_night: Number(room.price_per_night),
+              room_count: Number(room.room_count),
+              image_url: room.image_url,
+              description: room.description,
+              check_in_date: room.check_in_date,
+              check_out_date: room.check_out_date,
+            });
+          }
         }
-
-        toast.success('Hotel created successfully!');
       }
 
-      setShowFormModal(false);
-      setEditingHotel(null);
+      toast.success('Updated successfully');
+    } else {
+      const createdHotel = await hotelApi.create(hotelData);
 
-      fetchHotels();
-    } catch (err) {
-      toast.error(err.message || 'Failed to save hotel');
-      throw err;
+      if (hotelData.rooms?.length > 0) {
+        const roomsData = hotelData.rooms.map(room => ({
+          hotel_id: createdHotel.id,
+          room_name: room.room_name,
+          room_type: room.room_type,
+          capacity: Number(room.capacity),
+          price_per_night: Number(room.price_per_night),
+          room_count: Number(room.room_count),
+          image_url: room.image_url,
+          description: room.description,
+          check_in_date: room.check_in_date,
+          check_out_date: room.check_out_date,
+        }));
+
+        await hotelApi.createRooms(roomsData);
+      }
+
+      toast.success('Created successfully');
     }
-  };
+
+    setShowFormModal(false);
+    setEditingHotel(null);
+    fetchHotels();
+
+  } catch (err) {
+    toast.error(err.message || 'Failed to save');
+  }
+};
 
   const handleLogout = () => {
     onLogout();
