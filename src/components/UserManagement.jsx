@@ -52,7 +52,7 @@ export default function UserManagement({ t }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: user.email,
-          username: user.username,
+          full_name: user.full_name,
           hotelName: user.hotel_name,
         }),
       }
@@ -192,7 +192,7 @@ export default function UserManagement({ t }) {
     }
 
     const confirmDelete = window.confirm(
-      `Bạn có chắc muốn xóa tài khoản "${selectedUser.username}" không?`
+      `Bạn có chắc muốn xóa tài khoản "${selectedUser.full_name}" không?`
     );
 
     if (!confirmDelete) return;
@@ -258,11 +258,11 @@ export default function UserManagement({ t }) {
         <div className="user-search-box">
           <Search size={18} />
           <input
-            type="text"
-            placeholder="Tìm kiếm theo email..."
-            value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
-          />
+  type="text"
+  placeholder={t('searchCustomer') || 'Tìm kiếm theo email...'}
+  value={searchEmail}
+  onChange={(e) => setSearchEmail(e.target.value)}
+/>
         </div>
       </div>
 
@@ -378,10 +378,10 @@ export default function UserManagement({ t }) {
                 </div>
 
                 <div className="user-avatar">
-                  {getInitials(user.username || user.hotel_name)}
+                  {getInitials(user.full_name || user.hotel_name)}
                 </div>
 
-                <div className="user-name">{user.username}</div>
+                <div className="user-name">{user.full_name}</div>
 
                 <div className="user-role-badge">{t('roleOwner')}</div>
 

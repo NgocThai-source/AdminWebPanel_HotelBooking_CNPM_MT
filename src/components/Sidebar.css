@@ -2,13 +2,22 @@
 .sidebar {
   background-color: var(--bg-sidebar);
   width: 260px;
+  height: 100vh;
+  max-height: 100vh;
+
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+
   border-right: 1px solid var(--border-line);
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
   z-index: 100;
-  overflow: hidden; /* Tránh tràn chữ khi đang chuyển động */
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 /* Kích thước khi bị thu gọn */

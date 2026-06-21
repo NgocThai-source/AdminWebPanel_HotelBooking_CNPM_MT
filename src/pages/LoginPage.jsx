@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Eye,
@@ -23,10 +23,24 @@ export default function LoginPage({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [shake, setShake] = useState(false);
-  const [theme, setTheme] = useState('light');
-  const [lang, setLang] = useState('vi');
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('admin_login_theme') || 'light';
+  });
+
+  const [lang, setLang] = useState(() => {
+    return localStorage.getItem('admin_login_lang') || 'vi';
+  });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('admin_login_theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem('admin_login_lang', lang);
+  }, [lang]);
 
   const text = {
     vi: {

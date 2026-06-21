@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { supabase } from "../services/supabaseClient";
 import "./UserManagement.css";
 
-export default function CustomerManagement() {
+export default function CustomerManagement({ t }) {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("active");
@@ -34,7 +34,7 @@ export default function CustomerManagement() {
 
     if (error) {
       console.log(error);
-      toast.error("Không tải được dữ liệu khách hàng!");
+      toast.error(t("loadCustomerFail") || "Không tải được dữ liệu khách hàng!");
       return;
     }
 
@@ -47,7 +47,7 @@ export default function CustomerManagement() {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Bạn có chắc muốn xóa khách hàng này?"
+      t("confirmDeleteCustomer") || "Bạn có chắc muốn xóa khách hàng này?"
     );
 
     if (!confirmDelete) return;
@@ -61,7 +61,7 @@ export default function CustomerManagement() {
 
     if (error) {
       console.log(error);
-      toast.error("Xóa thất bại!");
+      toast.error(t("deleteFail") || "Xóa thất bại!");
       setProcessingId(null);
       return;
     }
@@ -69,7 +69,7 @@ export default function CustomerManagement() {
     setCustomers((prev) => prev.filter((item) => item.id !== id));
     setOpenMenuId(null);
     setProcessingId(null);
-    toast.success("Đã xóa khách hàng!");
+    toast.success(t("deleteCustomerSuccess") || "Đã xóa khách hàng!");
   };
 
   const handleLock = async (id) => {
@@ -82,7 +82,7 @@ export default function CustomerManagement() {
 
     if (error) {
       console.log(error);
-      toast.error("Khóa tài khoản khách thất bại!");
+      toast.error(t("lockCustomerFail") || "Khóa tài khoản khách thất bại!");
       setProcessingId(null);
       return;
     }
@@ -95,7 +95,7 @@ export default function CustomerManagement() {
 
     setOpenMenuId(null);
     setProcessingId(null);
-    toast.success("Đã khóa tài khoản khách!");
+    toast.success(t("lockCustomerSuccess") || "Đã khóa tài khoản khách!");
   };
 
   const handleUnlock = async (id) => {
@@ -108,7 +108,7 @@ export default function CustomerManagement() {
 
     if (error) {
       console.log(error);
-      toast.error("Mở khóa tài khoản khách thất bại!");
+      toast.error(t("unlockCustomerFail") || "Mở khóa tài khoản khách thất bại!");
       setProcessingId(null);
       return;
     }
@@ -121,7 +121,7 @@ export default function CustomerManagement() {
 
     setOpenMenuId(null);
     setProcessingId(null);
-    toast.success("Đã mở khóa tài khoản khách!");
+    toast.success(t("unlockCustomerSuccess") || "Đã mở khóa tài khoản khách!");
   };
 
   const displayedCustomers = customers.filter((customer) => {
@@ -150,7 +150,7 @@ export default function CustomerManagement() {
       .slice(0, 2);
 
   const formatDateTime = (value) => {
-    if (!value) return "Chưa có thời gian";
+    if (!value) return t("noTime") || "Chưa có thời gian";
     return new Date(value).toLocaleString("vi-VN");
   };
 
@@ -158,14 +158,14 @@ export default function CustomerManagement() {
     <div className="user-management-container">
       <div className="user-top-row">
         <div className="header-titles">
-          <h1>Quản lý khách</h1>
-          <p>Quản lý tài khoản khách hàng trên hệ thống.</p>
+          <h1>{t("customerTitle")}</h1>
+          <p>{t("customerDesc")}</p>
         </div>
 
         <div className="user-search-box">
           <Search size={18} />
           <input
-            placeholder="Tìm kiếm theo email..."
+            placeholder={t("searchCustomer")}
             value={searchEmail}
             onChange={(e) => setSearchEmail(e.target.value)}
           />
@@ -177,21 +177,21 @@ export default function CustomerManagement() {
           className={`pill ${filter === "active" ? "active" : ""}`}
           onClick={() => setFilter("active")}
         >
-          Hoạt động
+          {t("activeCustomer")}
         </button>
 
         <button
           className={`pill ${filter === "locked" ? "active" : ""}`}
           onClick={() => setFilter("locked")}
         >
-          Đã khóa
+          {t("lockedCustomer")}
         </button>
 
         <button
           className={`pill ${filter === "all" ? "active" : ""}`}
           onClick={() => setFilter("all")}
         >
-          Tất cả
+          {t("allCustomer")}
         </button>
       </div>
 
@@ -205,7 +205,7 @@ export default function CustomerManagement() {
               marginTop: "40px",
             }}
           >
-            Đang tải dữ liệu...
+            {t("loadingData")}
           </p>
         ) : displayedCustomers.length === 0 ? (
           <p
@@ -216,7 +216,7 @@ export default function CustomerManagement() {
               marginTop: "40px",
             }}
           >
-            Không có dữ liệu trong mục này.
+            {t("noData")}
           </p>
         ) : (
           displayedCustomers.map((customer, index) => {
@@ -250,7 +250,7 @@ export default function CustomerManagement() {
                           disabled={processingId === customer.id}
                         >
                           <UnlockKeyhole size={15} />
-                          Mở khóa
+                          {t("unlockAccount")}
                         </button>
                       ) : (
                         <button
@@ -260,7 +260,7 @@ export default function CustomerManagement() {
                           disabled={processingId === customer.id}
                         >
                           <LockKeyhole size={15} />
-                          Khóa
+                          {t("lockAccount")}
                         </button>
                       )}
 
@@ -271,7 +271,7 @@ export default function CustomerManagement() {
                         disabled={processingId === customer.id}
                       >
                         <Trash2 size={15} />
-                        Xóa
+                        {t("deleteAccount")}
                       </button>
                     </div>
                   )}
@@ -281,24 +281,26 @@ export default function CustomerManagement() {
                   {getInitials(customer.full_name)}
                 </div>
 
-                <div className="user-name">{customer.full_name}</div>
+                <div className="user-name">
+                  {customer.full_name || t("unknownCustomer")}
+                </div>
 
                 <div
                   className="user-role-badge"
                   style={{ background: "#0ea5e920" }}
                 >
-                  KHÁCH HÀNG
+                  {t("customerRole")}
                 </div>
 
                 <div className="user-info-list">
                   <div className="user-info-item">
                     <Mail size={14} color="var(--cyan-main)" />
-                    {customer.email || "Chưa có email"}
+                    {customer.email || t("noEmail")}
                   </div>
 
                   <div className="user-info-item">
                     <Phone size={14} color="var(--cyan-main)" />
-                    {customer.phone || "Chưa có số điện thoại"}
+                    {customer.phone || t("noPhone")}
                   </div>
 
                   <div className="user-info-item">
@@ -315,7 +317,7 @@ export default function CustomerManagement() {
                   </div>
                 ) : (
                   <span className="status-badge-inline success">
-                    Hoạt động
+                    {t("activeCustomer")}
                   </span>
                 )}
               </div>

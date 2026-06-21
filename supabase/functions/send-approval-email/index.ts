@@ -41,15 +41,18 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    console.log("Request body:", body);
+    console.log("REQUEST BODY:", body);
 
-    const { email, username, hotelName } = body;
+    const email = body.email;
+    const fullName = body.full_name || body.username;
+    const hotelName = body.hotelName || body.hotel_name;
 
-    if (!email || !username || !hotelName) {
+    if (!email || !fullName || !hotelName) {
       return jsonResponse(
         {
           success: false,
-          error: "Thiếu email, username hoặc hotelName",
+          error: "Thiếu email, full_name/username hoặc hotelName/hotel_name",
+          received: body,
         },
         400
       );
@@ -72,14 +75,14 @@ Deno.serve(async (req) => {
             Yêu cầu đăng ký Host đã được duyệt
           </h2>
 
-          <p>Xin chào <b>${username}</b>,</p>
+          <p>Xin chào <b>${fullName}</b>,</p>
 
           <p>
             Admin của <b>Hotel Booking App</b> đã phê duyệt yêu cầu đăng ký tài khoản Host của bạn.
           </p>
 
           <div style="background:#f1f5f9; padding:18px; border-radius:12px; margin:20px 0;">
-            <p><b>Tên đăng nhập:</b> ${username}</p>
+            <p><b>Tên đăng nhập:</b> ${fullName}</p>
             <p><b>Email:</b> ${email}</p>
             <p><b>Tên khách sạn:</b> ${hotelName}</p>
             <p><b>Trạng thái:</b> Đã duyệt</p>
@@ -112,10 +115,12 @@ Deno.serve(async (req) => {
     });
 
     const resendText = await resendRes.text();
-    console.log("Resend status:", resendRes.status);
-    console.log("Resend response:", resendText);
 
-    let resendData;
+    console.log("RESEND STATUS:", resendRes.status);
+    console.log("RESEND RESPONSE:", resendText);
+
+    let resendData: unknown;
+
     try {
       resendData = JSON.parse(resendText);
     } catch {
@@ -139,7 +144,7 @@ Deno.serve(async (req) => {
       data: resendData,
     });
   } catch (error) {
-    console.log("Function error:", error);
+    console.log("FUNCTION ERROR:", error);
 
     return jsonResponse(
       {

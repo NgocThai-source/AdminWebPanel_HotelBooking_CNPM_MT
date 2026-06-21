@@ -6,7 +6,9 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
+
 import AppHost from './pages/hostAuth/AppHost';
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -87,6 +89,7 @@ function App() {
           }
         />
 
+
         <Route
           path="*"
           element={
@@ -96,6 +99,7 @@ function App() {
             />
           }
         />
+
       </Routes>
     </Router>
   );

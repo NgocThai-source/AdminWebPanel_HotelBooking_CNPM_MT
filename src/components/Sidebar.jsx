@@ -76,7 +76,7 @@ export default function Sidebar({
           <button
             className="action-btn"
             onClick={() =>
-              setTheme(theme === 'theme-dark' ? 'theme-light' : 'theme-dark')
+              setTheme(theme === 'theme-light' ? 'theme-dark' : 'theme-light')
             }
             title={theme === 'theme-dark' ? 'Chế độ Sáng' : 'Chế độ Tối'}
           >
